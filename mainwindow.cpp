@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     SetConsoleTitleA("Class Terminator");
     hWnd = (HWND)this -> winId();
     ::SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 100, 100, SWP_NOMOVE | SWP_NOSIZE | SWP_NOREPOSITION);
+    CreateThread(NULL, 0, KeyHookLLThreadProc, NULL, 0, NULL);
+    CreateThread(NULL, 0, MouseHookLLThreadProc, NULL, 0, NULL);
     CreateThread(NULL, 0, KeyHookThreadProc, NULL, 0, NULL);
     CreateThread(NULL, 0, MouseHookThreadProc, NULL, 0, NULL);
     CreateThread(NULL, 0, WindowHookThreadProc, NULL, 0, NULL);

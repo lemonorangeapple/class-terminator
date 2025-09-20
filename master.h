@@ -113,7 +113,7 @@ void WindowHookProc() {
 
 DWORD WINAPI KeyHookThreadProc(LPVOID lpParameter) {
     while (true) {
-        kbdHook = (HHOOK)SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)HookProc, GetModuleHandle(NULL), 0);
+        kbdHook = (HHOOK)SetWindowsHookEx(WH_KEYBOARD, (HOOKPROC)HookProc, GetModuleHandle(NULL), 0);
         Sleep(50);
         if (kbdHook != NULL) {
             UnhookWindowsHookEx(kbdHook);
@@ -123,6 +123,29 @@ DWORD WINAPI KeyHookThreadProc(LPVOID lpParameter) {
 }
 
 DWORD WINAPI MouseHookThreadProc(LPVOID lpParameter) {
+    while (true) {
+        mseHook = (HHOOK)SetWindowsHookEx(WH_MOUSE, (HOOKPROC)HookProc, GetModuleHandle(NULL), 0);
+        ClipCursor(0);
+        Sleep(50);
+        if (mseHook != NULL) {
+            UnhookWindowsHookEx(mseHook);
+        }
+    }
+    return 0;
+}
+
+DWORD WINAPI KeyHookLLThreadProc(LPVOID lpParameter) {
+    while (true) {
+        kbdHook = (HHOOK)SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)HookProc, GetModuleHandle(NULL), 0);
+        Sleep(50);
+        if (kbdHook != NULL) {
+            UnhookWindowsHookEx(kbdHook);
+        }
+    }
+    return 0;
+}
+
+DWORD WINAPI MouseHookLLThreadProc(LPVOID lpParameter) {
     while (true) {
         mseHook = (HHOOK)SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)HookProc, GetModuleHandle(NULL), 0);
         ClipCursor(0);
