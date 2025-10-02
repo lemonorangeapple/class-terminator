@@ -83,6 +83,7 @@ LRESULT CALLBACK HookProc(int nCode, WPARAM wParam, LPARAM lParam) {
 DWORD WINAPI HideThreadProc(LPVOID lpParameter) {
     while (true) {
         ShowWindow(hBoardWindow, SW_MINIMIZE);
+        EnableWindow(hBoardWindow, FALSE);
         Sleep(50);
         if (!IsWindow(hBoardWindow)) {
             break;
@@ -107,6 +108,7 @@ void WindowHookProc() {
     else {
         TerminateThread(hBoardHookThread, 0);
         ShowWindow(hBoardWindow, SW_RESTORE);
+        EnableWindow(hBoardWindow, TRUE);
     }
     return;
 }
